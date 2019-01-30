@@ -6,10 +6,17 @@ using System.Threading.Tasks;
 
 namespace BankingProject
 {
+
     class Program
     {
         static void Main(string[] args)
         {
+            var acct1 = new Account(("Test Checking"));
+            acct1.Print();
+            acct1.Deposit(1000.00);
+            acct1.Print();
+            acct1.Withdraw(60.00);
+            acct1.Print();
         }
     }
 }
