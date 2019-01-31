@@ -8,15 +8,27 @@ namespace BankingProject
 {
     class Account
     {
+        public void TransferTo(double Amount, Account acct)
+        {
+            var BalanceBeforeWithdraw = GetBalance();
+            Withdraw(Amount);
+            var BalanceAfterWithdraw = GetBalance();
+            if (BalanceBeforeWithdraw == BalanceAfterWithdraw)
+            {
+                Console.WriteLine(" Insufficient Funds");
+                return;
+            }
+            acct.Deposit(Amount);
+        }
+        private static int nextId = 1;
         private int Id { get; set; }
         private string Description { get; set; }
         private double Balance { get; set; }
-
         public string GetDescription()
         {
             return Description;
-             }
-    public int GetId()
+        }
+        public int GetId()
         {
             return Id;
         }
@@ -30,30 +42,60 @@ namespace BankingProject
         }
         public void Deposit(double Amount)
         {
-            Balance += Amount; 
-
+            if (Amount <= 0)
+            {
+                Console.WriteLine("Must deposit at least .01 !");
+            }
+            else
+            {
+                Balance += Amount;
+            }
         }
         public void Withdraw(double Amount)
         {
-            Balance -= Amount;
+            if (Amount <= 0)
+            {
+                Console.WriteLine("Cannot withdraw a negative number!");
+                return;
+            }
+            if (Amount > Balance)
+            {
+                Console.WriteLine("Insuffiecient Funds!");
+                return;
+            }
+            else
+            {
+                Balance -= Amount;
+            }
+        
         }
-        public void Print()
+
+        public virtual string Print()
         {
-            Console.WriteLine($"Id ={Id}, Description = {Description}, and Balance = {Balance}");
+           return $"Id = {Id}, Description = {Description}, and Balance = {Balance}";
         }
+
+
+       
+
         public Account(string NewDescription)
         {
-            Id = -1;
-            Description = NewDescription;
+            Id = nextId++;
+            if (NewDescription == null)
+            {
+                Description = "*New Account*";
+            }
+            else
+            {
+                Description = NewDescription;
+            }
             Balance = 0;
         }
         public Account()
+            : this(null)
         {
-            Id = -1;
-            Description = "$New Account";
-            Balance = 0;
+
 
         }
-
     }
 }
