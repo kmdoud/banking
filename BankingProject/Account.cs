@@ -6,9 +6,25 @@ using System.Threading.Tasks;
 
 namespace BankingProject
 {
-    class Account
+    class Account : IComparable<Account>, IPrintable, IAccount // account class is now comparable by description by the "IComparable<Account>"
     {
-        public void TransferTo(double Amount, Account acct)
+        public int CompareTo(Account acct) // combined with this method containing this template as well
+        {
+            if(this.Description.Equals(acct.Description))
+            {
+                return 0;
+            }
+            if (this.Description.CompareTo (acct.Description) >0 )
+            {
+                return 1;
+            }
+            else
+            {
+                return -1;
+            }
+        }
+
+        public void TransferTo(decimal Amount, Account acct)
         {
             var BalanceBeforeWithdraw = GetBalance();
             Withdraw(Amount);
@@ -23,7 +39,7 @@ namespace BankingProject
         private static int nextId = 1;
         private int Id { get; set; }
         private string Description { get; set; }
-        private double Balance { get; set; }
+        private decimal Balance { get; set; }
         public string GetDescription()
         {
             return Description;
@@ -36,11 +52,11 @@ namespace BankingProject
         {
             Description = NewDescription;
         }
-        public double GetBalance()
+        public decimal GetBalance()
         {
             return Balance;
         }
-        public void Deposit(double Amount)
+        public void Deposit(decimal Amount)
         {
             if (Amount <= 0)
             {
@@ -51,7 +67,7 @@ namespace BankingProject
                 Balance += Amount;
             }
         }
-        public void Withdraw(double Amount)
+        public void Withdraw(decimal Amount)
         {
             if (Amount <= 0)
             {

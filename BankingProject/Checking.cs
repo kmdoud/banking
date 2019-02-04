@@ -6,23 +6,57 @@ using System.Threading.Tasks;
 
 namespace BankingProject
 {
-    class Checking : Account
+    class Checking : IPrintable, IAccount //built using composition from Account
     {
+        private Account account { get; set; }
+
         public int NextCheckNbr { get; set; } = 1;
-        public override string Print()
+        public int GetId()
         {
-            return base.Print() + $" NextCheckNbr= {NextCheckNbr}";       
+            return account.GetId();
+
         }
-        
+        public decimal GetBalance()
+        {
+            return account.GetBalance();
+        }
+        public string GetDescription()
+        {
+            return account.GetDescription();
+        }
+        public void SetDescription(string NewDescription)
+        {
+            account.SetDescription(NewDescription);
+        }
+        public void Deposit(decimal Amount)
+        {
+            account.Deposit(Amount);
+        }
+        public void Withdraw(decimal Amount)
+        {
+            account.Withdraw(Amount);
+        }
+        public string Print()
+        {
+            return account.Print() + $" NextCheckNbr= {NextCheckNbr}";
+        }
+
         public int GetNextCheckNbr()
         {
             return NextCheckNbr;
         }
-        public Checking(string Newdescription) :base(Newdescription)
+        public void TransferTo(decimal Amount, Account account)
         {
 
         }
-        public Checking() : this(null)
+        
+        
+
+        public Checking(string Newdescription) 
+        {
+            account = new Account(Newdescription);
+        }
+        public Checking() : this(null) 
         {
 
         }

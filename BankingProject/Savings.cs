@@ -6,19 +6,19 @@ using System.Threading.Tasks;
 
 namespace BankingProject
 {
-    class Savings : Account
+    class Savings : Account, IPrintable, IAccount  //using inheritance to call accounts 
     {
         public override string Print()
         {
             return base.Print() + $" IntRate={IntRate}";
         }
-        private double IntRate { get; set; } = .01;
+        private decimal IntRate { get; set; } = .01M;
 
-        public double GetIntRate()
+        public decimal GetIntRate()
         {
             return IntRate;
         }
-        public void SetIntRate(double NewIntRate)
+        public void SetIntRate(decimal NewIntRate)
         {
             IntRate = NewIntRate;
         }
@@ -31,7 +31,7 @@ namespace BankingProject
 
         public Savings(string NewDescription) : base(NewDescription)
         {
-            SetIntRate(.01);
+            SetIntRate(.01M);
         }
         public Savings() : this(null)
         {
