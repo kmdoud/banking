@@ -60,7 +60,7 @@ namespace BankingProject
         {
             if (Amount <= 0)
             {
-                Console.WriteLine("Must deposit at least .01 !");
+                throw new DepositWithdrawTransferException();
             }
             else
             {
@@ -71,13 +71,16 @@ namespace BankingProject
         {
             if (Amount <= 0)
             {
-                Console.WriteLine("Cannot withdraw a negative number!");
-                return;
+                throw new DepositWithdrawTransferException();
+                //Console.WriteLine("Cannot withdraw a negative number!");
+                //return;
             }
             if (Amount > Balance)
             {
-                Console.WriteLine("Insuffiecient Funds!");
-                return;
+                throw new InsufficientFundsException();
+
+                //Console.WriteLine("Insuffiecient Funds!");
+                //return;
             }
             else
             {

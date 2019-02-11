@@ -11,17 +11,35 @@ namespace BankingProject
     {
         static void Main(string[] args)
         {
-            IPrintable[] accounts =
+            IAccount[] accounts =
             {
                 new Account("An Account"),
                 new Savings("A Savings"),
                 new Checking("A Checking")
-                
+
             };
+            try
+            {
+                accounts[0].Deposit(-10);
+                accounts[0].Withdraw(100000000000);
+
+                
+            }
+            catch(InsufficientFundsException ex)
+            {
+                Console.WriteLine("Insufficent Funds");
+            }
+            catch(DepositWithdrawTransferException ex)
+            {
+                Console.WriteLine("Cannot be negative");
+            }
+
+
+
             foreach (var account in accounts)
             {
-                IAccount acct = account as IAccount;
-               
+
+
                 Console.WriteLine(account.Print());
             }
             Console.ReadKey();

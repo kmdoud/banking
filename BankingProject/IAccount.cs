@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace BankingProject
 {
-    interface IAccount
+    interface IAccount :IPrintable
     {
         int GetId();
         string GetDescription();
